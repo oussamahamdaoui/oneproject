@@ -322,17 +322,19 @@ const Nav = () => {
 module.exports = Nav();
 
 },{"@forgjs/noframework":1}],3:[function(require,module,exports){
-const { html } = require('@forgjs/noframework');
+const { html, $$ } = require('@forgjs/noframework');
 
 const ProjectCard = ({
-  name, description, img, author, tags = [], isOpen,
+  name, description, img, team = [], tags = [], isOpen,
 }) => {
   const DomElement = html`
     <article>
       <img src="${img}">
       <h1>${isOpen ? '' : '<i class="icofont-shield-alt"></i>'} ${name}</h1>
+      <p class="team">
+        ${team.map(e => html`<strong class='${e.author ? 'author' : ''}'>@${e.name}</strong>`)}
+      </p>
       <p>
-        <strong>@${author}</strong>
         ${description}
       </p>
 
@@ -341,13 +343,15 @@ const ProjectCard = ({
       </p>
       
       <ul>
-        <li><i class="icofont-hand-power"></i> Join</li>
-        <li><i class="icofont-heart"></i> Like</li>
-        <li><i class="icofont-book-mark"></i> Save</li>
+        <li class="join"><i class="icofont-hand-power"></i> Join</li>
+        <li class="like"><i class="icofont-heart"></i> Like</li>
+        <li class="save"><i class="icofont-book-mark"></i> Save</li>
       </ul>
 
     </article>
   `;
+
+  $$('ul>li', DomElement).forEach(e => e.addEventListener('click', () => e.classList.toggle('selected')));
 
   return DomElement;
 };
@@ -394,6 +398,7 @@ const ProjectCard = require('./components/ProjectCard');
 
 
 const projects = [{
+  team: [{ name: 'PH', author: true }, { name: 'Koko' }, { name: 'Krikri' }],
   tags: ['Javascript', 'HTML'],
   isOpen: true,
   author: 'Oussama',
@@ -408,14 +413,17 @@ const projects = [{
   description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
 },
 {
+  team: [{ name: 'Pierre Haricot' }, { name: 'Coco', author: true }, { name: 'Krikri' }],
   author: 'Krikri',
   name: 'Project Three',
   img: 'https://cdn.dribbble.com/users/426214/screenshots/6099634/building_analytics_website_2x.jpg',
   description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
 },
 {
+  team: [{ name: 'Pierre Haricot' }, { name: 'La porte', author: true }, { name: 'DEVELOPPER' }, { name: 'DEVELOPPER' }],
   author: 'Krikri',
   name: 'Project Three',
+  isOpen: true,
   img: 'https://cdn.dribbble.com/users/25514/screenshots/6373241/scoot_urgent_mobile_support.png',
   description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
 }];

@@ -18,6 +18,8 @@ li {
 
   --highlight:#4081E2;
   --highlight2:#C8D5E7;
+
+  --secondary1:#1BAA52;
 }
 
 
@@ -191,6 +193,9 @@ main > article {
   background-color: var(--light-1);
   border-radius: 3px;
   padding:15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 main > article > img {
@@ -230,9 +235,27 @@ main > article > .tags > strong{
   color:var(--light-3);
 }
 
+main > article > .team {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main > article > .team > strong.author {
+  background-color: var(--secondary1);
+  color:var(--light-1);
+}
+
+main > article > ul > li {
+  cursor: pointer;
+}
+
+main > article > ul > li.selected > i {
+  color: var(--secondary1);
+}
+
 strong {
   padding-left:10px;
-  padding-right:10px;
+  padding-right:13px;
   padding-top:3px;
   padding-bottom:4px;
   margin-left:3px;
@@ -240,4 +263,8 @@ strong {
   color:var(--highlight);
   border-radius: 1em;
   opacity: 0.9;
+  text-align: center;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+  margin-bottom:5px;
 }

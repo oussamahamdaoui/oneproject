@@ -5,6 +5,7 @@ const ProjectCard = require('./components/ProjectCard');
 
 
 const projects = [{
+  team: [{ name: 'PH', author: true }, { name: 'Koko' }, { name: 'Krikri' }],
   tags: ['Javascript', 'HTML'],
   isOpen: true,
   author: 'Oussama',
@@ -19,14 +20,17 @@ const projects = [{
   description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
 },
 {
+  team: [{ name: 'Pierre Haricot' }, { name: 'Coco', author: true }, { name: 'Krikri' }],
   author: 'Krikri',
   name: 'Project Three',
   img: 'https://cdn.dribbble.com/users/426214/screenshots/6099634/building_analytics_website_2x.jpg',
   description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
 },
 {
+  team: [{ name: 'Pierre Haricot' }, { name: 'La porte', author: true }, { name: 'DEVELOPPER' }, { name: 'DEVELOPPER' }],
   author: 'Krikri',
   name: 'Project Three',
+  isOpen: true,
   img: 'https://cdn.dribbble.com/users/25514/screenshots/6373241/scoot_urgent_mobile_support.png',
   description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
 }];
