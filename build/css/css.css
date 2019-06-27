@@ -1,0 +1,243 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+:root{
+  --bg-color:#EAEAEC;
+  --light-1:#FFFFFF;
+  --light-2:#CECFD6;
+  --light-3:#B0BAC4;
+  --darker-1:#1D222C;
+  --darker-2:#131923;
+
+  --highlight:#4081E2;
+  --highlight2:#C8D5E7;
+}
+
+
+body, html{
+  font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--darker-2);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-rows:100px auto;
+  min-height: 100vh;
+  height: 100%;
+}
+
+nav {
+  grid-column-start: 2;
+  grid-column-end:-1;
+  background-color: var(--light-1);
+  border-bottom: 1px solid  var(--light-2);
+  display:grid;
+  grid-template-columns:  1fr auto;
+  grid-template-rows:1fr 1fr;
+  position: sticky;
+  top:0;
+  z-index: 99;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.1);
+  padding-left:15px;
+  padding-right:15px;
+  padding-top:15px;
+}
+
+nav > .search {
+  background-color: var(--highlight);
+  color:var(--light-1);
+  border:none;
+  outline:none;
+  font-size:1.2em;
+  padding-left: 15px;
+  padding-right: 15px;
+
+}
+
+nav > .search > i {
+  margin-right: 10px;
+}
+
+
+nav > input {
+  border:none;
+  outline:none;
+  font-size:1.2em;
+  padding-left: 20px;
+}
+
+
+nav > ul {
+  display: flex;
+  align-items:flex-end;
+  padding-left: 15px;
+  flex:1;
+  grid-column-start: 1;
+  grid-column-end:-1;
+}
+
+nav > ul > li{
+  padding-left:25px;
+  padding-right:25px;
+  padding-bottom: 5px;
+  position: relative;
+}
+
+nav > ul > li::after{
+  content:'';
+  width:100%;
+  position: absolute;
+  bottom:0;
+  left:0;
+  opacity: 0;
+  height: 3px;
+  border-radius: 5px;
+  background-color: var(--highlight);
+  transition: opacity 300ms ease-in-out;
+}
+
+nav > ul > li.selected::after{
+  opacity: 1;
+}
+
+aside {
+  grid-column-start: 1;
+  grid-column-end:1;
+  grid-row-start: 1;
+  grid-row-end: -1;
+  background-color: var(--darker-2);
+  color: var(--light-3);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+aside > .logo {
+  margin-bottom:1em;
+  font-family: 'Righteous', cursive;
+  color:var(--light-1);
+}
+
+aside > section > h2 {
+  margin-bottom: 3px;
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
+aside > section > h2 > i {
+  margin-right: 7px;
+  color:var(--highlight);
+}
+
+aside > section > ul{
+  display: flex;
+  flex-direction: column;
+}
+
+
+aside > section > ul > li {
+  margin-top:5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+aside > section.notifications {
+  flex:1;
+  margin-top:15px;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+}
+
+aside > section > article {
+  background-color: var(--darker-1);
+  width: 100%;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top:5px;
+  flex:1;
+  max-height: 50vh;
+  position: sticky;
+  top:15px;
+}
+
+
+main {
+  grid-column-start: 2;
+  grid-column-end:2;
+  grid-row-start: 2;
+  grid-row-end: -1;
+  background-color: var(--bg-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  grid-gap: 2rem;
+  padding:2rem;
+}
+
+main > article {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background-color: var(--light-1);
+  border-radius: 3px;
+  padding:15px;
+}
+
+main > article > img {
+  width: 100%;
+}
+
+main > article > h1 {
+  margin-bottom:12px;
+  margin-top:12px;
+}
+
+main > article > ul {
+  width: 100%;
+  display: flex;
+  font-size: 1.2em;
+  height: 40px;
+  align-items: center;
+  justify-content: flex-end;
+  border-top:1px solid var(--light-2);
+  margin-top:10px;
+}
+
+main > article > ul > li > i {
+  color:var(--light-2);
+  margin-left:15px;
+}
+
+main > article > p {
+  line-height: 22px;
+}
+main > article > .tags {
+  margin-top:10px;
+}
+
+main > article > .tags > strong{
+  background-color: transparent;
+  color:var(--light-3);
+}
+
+strong {
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:3px;
+  padding-bottom:4px;
+  margin-left:3px;
+  background-color:var(--highlight2);
+  color:var(--highlight);
+  border-radius: 1em;
+  opacity: 0.9;
+}

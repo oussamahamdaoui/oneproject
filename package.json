@@ -1,0 +1,21 @@
+{
+  "name": "oneprojectfront",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@forgjs/noframework": "^1.0.7",
+    "watchify": "^3.11.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.18.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify src/index.js -o build/index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
