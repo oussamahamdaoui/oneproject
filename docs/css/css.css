@@ -212,6 +212,7 @@ i.project {
 
 .notification.removing {
   opacity: 0;
+  transform: translateX(-100%);
 }
 
 main {
