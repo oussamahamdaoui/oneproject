@@ -9,7 +9,7 @@ const Nav = () => {
       <ul>
         <li class="selected">New</li>
         <li>Best</li>
-        <li>Based on your skils</li>
+        <li>Skils</li>
         <li>Open</li>
       </ul>
     </nav>

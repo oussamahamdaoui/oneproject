@@ -240,6 +240,7 @@ main > article {
 
 main > article > img {
   width: 100%;
+  background: url();
 }
 
 main > article > h1 {
@@ -307,4 +308,43 @@ strong {
   transition: all 200ms ease-in-out;
   cursor: pointer;
   margin-bottom:5px;
+}
+
+
+/* media querys mobile*/
+
+@media screen and (min-width: 1500px)
+{
+    main {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 800px)
+{
+  .app {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:100px auto;
+    width: 100%;
+  }
+
+  aside {
+    display: none;
+  }
+
+  nav {
+    grid-column-start: 1;
+    grid-column-end:3;
+    font-size: 0.9em;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+    grid-column-start: 1;
+    grid-column-end:3;
+    grid-row-start: 2;
+    grid-row-end: -1;
+  }
+
+    
 }
