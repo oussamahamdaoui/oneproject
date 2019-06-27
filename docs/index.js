@@ -322,6 +322,39 @@ const Nav = () => {
 module.exports = Nav();
 
 },{"@forgjs/noframework":1}],3:[function(require,module,exports){
+const { html, $ } = require('@forgjs/noframework');
+
+const Notification = ({ type, title, message }) => {
+  const TypeToClass = {
+    project: 'icofont-ui-message',
+    message: 'icofont-chat',
+  };
+
+
+  const DomElement = html`
+    <li class="notification">
+      <header>
+        <i class=" ${type} ${TypeToClass[type]} "></i>
+        <h3>${title}</h3>
+        <i class="close icofont-close"></i>
+      </header>
+      <p>${message}</p>
+    </li>
+  `;
+
+  $('.close', DomElement).addEventListener('click', () => {
+    DomElement.classList.add('removing');
+    setTimeout(() => {
+      DomElement.parentNode.removeChild(DomElement);
+    }, 300);
+  });
+
+  return DomElement;
+};
+
+module.exports = Notification;
+
+},{"@forgjs/noframework":1}],4:[function(require,module,exports){
 const { html, $$ } = require('@forgjs/noframework');
 
 const ProjectCard = ({
@@ -359,8 +392,29 @@ const ProjectCard = ({
 
 module.exports = ProjectCard;
 
-},{"@forgjs/noframework":1}],4:[function(require,module,exports){
+},{"@forgjs/noframework":1}],5:[function(require,module,exports){
 const { html } = require('@forgjs/noframework');
+const Notification = require('./Notification');
+
+const notifications = [{
+  type: 'message',
+  title: 'New message',
+  message: 'Oussama: Lorem ipsum dolor, fez colre calresrgi',
+}, {
+  type: 'project',
+  title: 'New message',
+  message: 'Oussama: Lorem ipsum dolor, fez colre calresrgi',
+},
+{
+  type: 'message',
+  title: 'New message',
+  message: 'Oussama: Lorem ipsum dolor, fez colre calresrgi',
+},
+{
+  type: 'message',
+  title: 'New message',
+  message: 'Oussama: Lorem ipsum dolor, fez colre calresrgi',
+}].map(Notification);
 
 const Side = () => {
   const DomElement = html`
@@ -379,7 +433,9 @@ const Side = () => {
       <section class="notifications">
         <h2><i class="icofont-alarm"></i>Notifications Feed</h2>
         <article>
-          
+          <ul>
+            ${notifications}
+          </ul>
         </article>
       </section>
     </aside>
@@ -390,7 +446,7 @@ const Side = () => {
 
 module.exports = Side();
 
-},{"@forgjs/noframework":1}],5:[function(require,module,exports){
+},{"./Notification":3,"@forgjs/noframework":1}],6:[function(require,module,exports){
 const { html, $ } = require('@forgjs/noframework');
 const Nav = require('./components/Navigation');
 const Side = require('./components/Side');
@@ -442,4 +498,4 @@ const app = html`
 
 $('body').appendChild(app);
 
-},{"./components/Navigation":2,"./components/ProjectCard":3,"./components/Side":4,"@forgjs/noframework":1}]},{},[5]);
+},{"./components/Navigation":2,"./components/ProjectCard":4,"./components/Side":5,"@forgjs/noframework":1}]},{},[6]);

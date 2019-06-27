@@ -14,12 +14,14 @@ li {
   --light-2:#CECFD6;
   --light-3:#B0BAC4;
   --darker-1:#1D222C;
-  --darker-2:#131923;
+  --darker-2:#F5F9FC;
 
-  --highlight:#4081E2;
-  --highlight2:#C8D5E7;
+  --highlight-1:#1B84E8;
+  --highlight-2:#C8D5E7;
 
-  --secondary1:#1BAA52;
+  --secondary-1:#2EC6A7;
+  --secondary-2:#FE8084;
+  --secondary-3:#FEC357;
 }
 
 
@@ -56,7 +58,7 @@ nav {
 }
 
 nav > .search {
-  background-color: var(--highlight);
+  background-color: var(--highlight-1);
   color:var(--light-1);
   border:none;
   outline:none;
@@ -104,7 +106,7 @@ nav > ul > li::after{
   opacity: 0;
   height: 3px;
   border-radius: 5px;
-  background-color: var(--highlight);
+  background-color: var(--highlight-1);
   transition: opacity 300ms ease-in-out;
 }
 
@@ -118,7 +120,7 @@ aside {
   grid-row-start: 1;
   grid-row-end: -1;
   background-color: var(--darker-2);
-  color: var(--light-3);
+  color: var(--darker-1);
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -127,7 +129,7 @@ aside {
 aside > .logo {
   margin-bottom:1em;
   font-family: 'Righteous', cursive;
-  color:var(--light-1);
+  color:var(--darker-1);
 }
 
 aside > section > h2 {
@@ -138,7 +140,7 @@ aside > section > h2 {
 
 aside > section > h2 > i {
   margin-right: 7px;
-  color:var(--highlight);
+  color:var(--highlight-1);
 }
 
 aside > section > ul{
@@ -163,17 +165,54 @@ aside > section.notifications {
 }
 
 aside > section > article {
-  background-color: var(--darker-1);
   width: 100%;
-  border-radius: 10px;
-  padding: 5px;
   margin-top:5px;
   flex:1;
   max-height: 50vh;
   position: sticky;
   top:15px;
+  overflow: scroll;
 }
 
+.notification {
+  background-color: var(--light-1);
+  padding-bottom:13px;
+  margin-bottom:15px;
+  border-radius: 5px;
+  opacity: 1;
+  transition: all 200ms ease-out;
+}
+
+.notification > header{
+  display: flex;
+  height: 40px;
+  border-bottom:1px solid var(--light-3);
+  padding:13px;
+  align-items: center;
+}
+
+.notification > header > h3{
+  flex:1;
+  padding-left:13px; 
+}
+
+.notification > p{
+  padding:15px;
+
+}
+
+i.message {
+  color: var(--secondary-2);
+}
+
+i.project {
+  color: var(--secondary-3);
+}
+
+
+.notification.removing {
+  opacity: 0;
+}
 
 main {
   grid-column-start: 2;
@@ -241,7 +280,7 @@ main > article > .team {
 }
 
 main > article > .team > strong.author {
-  background-color: var(--secondary1);
+  background-color: var(--secondary-1);
   color:var(--light-1);
 }
 
@@ -250,7 +289,7 @@ main > article > ul > li {
 }
 
 main > article > ul > li.selected > i {
-  color: var(--secondary1);
+  color: var(--secondary-1);
 }
 
 strong {
@@ -259,7 +298,7 @@ strong {
   padding-top:3px;
   padding-bottom:4px;
   margin-left:3px;
-  background-color:var(--highlight2);
+  background-color:var(--highlight-2);
   color:var(--highlight);
   border-radius: 1em;
   opacity: 0.9;
