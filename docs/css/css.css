@@ -171,7 +171,7 @@ aside > section > article {
   max-height: 50vh;
   position: sticky;
   top:15px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .notification {
