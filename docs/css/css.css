@@ -228,7 +228,7 @@ main {
   padding:2rem;
 }
 
-main > article {
+main.home > article {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   background-color: var(--light-1);
   border-radius: 3px;
@@ -238,17 +238,21 @@ main > article {
   justify-content: space-between;
 }
 
-main > article > img {
+main.home > article.hide {
+  display: none;
+}
+
+main.home > article > img {
   width: 100%;
   background: url();
 }
 
-main > article > h1 {
+main.home > article > h1 {
   margin-bottom:12px;
   margin-top:12px;
 }
 
-main > article > ul {
+main.home > article > ul {
   width: 100%;
   display: flex;
   font-size: 1.2em;
@@ -259,38 +263,38 @@ main > article > ul {
   margin-top:10px;
 }
 
-main > article > ul > li > i {
+main.home > article > ul > li > i {
   color:var(--light-2);
   margin-left:15px;
 }
 
-main > article > p {
+main.home > article > p {
   line-height: 22px;
 }
-main > article > .tags {
+main.home > article > .tags {
   margin-top:10px;
 }
 
-main > article > .tags > strong{
+main.home > article > .tags > strong{
   background-color: transparent;
   color:var(--light-3);
 }
 
-main > article > .team {
+main.home > article > .team {
   display: flex;
   flex-wrap: wrap;
 }
 
-main > article > .team > strong.author {
+main.home > article > .team > strong.author {
   background-color: var(--secondary-1);
   color:var(--light-1);
 }
 
-main > article > ul > li {
+main.home > article > ul > li {
   cursor: pointer;
 }
 
-main > article > ul > li.selected > i {
+main.home > article > ul > li.selected > i {
   color: var(--secondary-1);
 }
 
@@ -308,6 +312,13 @@ strong {
   transition: all 200ms ease-in-out;
   cursor: pointer;
   margin-bottom:5px;
+}
+main.project {
+  display : flex;
+  background-color:var(--light-1);
+}
+main.project >article> img{
+  width:100%;
 }
 
 

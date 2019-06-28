@@ -1,4 +1,5 @@
 const { html, $$, $ } = require('@forgjs/noframework');
+const EventHandler = require('../EventHandler');
 
 const Nav = () => {
   const DomElement = html`
@@ -19,6 +20,7 @@ const Nav = () => {
     link.addEventListener('click', () => {
       $('li.selected', DomElement).classList.remove('selected');
       link.classList.add('selected');
+      EventHandler.emit('filter-cards', link.innerHTML);
     });
   });
   return DomElement;

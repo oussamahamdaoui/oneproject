@@ -293,7 +293,56 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
+const { EventManager } = require('@forgjs/noframework');
+
+const EventHandler = new EventManager();
+
+module.exports = EventHandler;
+
+},{"@forgjs/noframework":1}],3:[function(require,module,exports){
+const { html } = require('@forgjs/noframework');
+const EventHandler = require('../EventHandler');
+const ProjectCard = require('./ProjectCard');
+const Rooter = require('./Rooter');
+
+
+const Home = () => {
+  const DomElement = html`
+    <main class="home">
+    </main>
+  `;
+
+  let projects = [];
+  const requestProjects = async () => {
+    DomElement.innerHTML = '';
+    const call = await fetch('/src/__mocks__/getProjects.json');
+    const resp = await call.json();
+    projects = resp.items.map(ProjectCard);
+    projects.forEach(p => DomElement.appendChild(p));
+  };
+
+  EventHandler.subscribe('filter-cards', async (filter) => {
+    await requestProjects();
+    projects.forEach((project) => {
+      if (filter === 'Open' && !project.statics.isOpen) {
+        project.classList.add('hide');
+      } else {
+        project.classList.remove('hide');
+      }
+    });
+  });
+
+
+  Rooter.onShow(DomElement, requestProjects);
+
+  return DomElement;
+};
+
+module.exports = Home();
+
+},{"../EventHandler":2,"./ProjectCard":7,"./Rooter":8,"@forgjs/noframework":1}],4:[function(require,module,exports){
 const { html, $$, $ } = require('@forgjs/noframework');
+const EventHandler = require('../EventHandler');
 
 const Nav = () => {
   const DomElement = html`
@@ -314,6 +363,7 @@ const Nav = () => {
     link.addEventListener('click', () => {
       $('li.selected', DomElement).classList.remove('selected');
       link.classList.add('selected');
+      EventHandler.emit('filter-cards', link.innerHTML);
     });
   });
   return DomElement;
@@ -321,7 +371,7 @@ const Nav = () => {
 
 module.exports = Nav();
 
-},{"@forgjs/noframework":1}],3:[function(require,module,exports){
+},{"../EventHandler":2,"@forgjs/noframework":1}],5:[function(require,module,exports){
 const { html, $ } = require('@forgjs/noframework');
 
 const Notification = ({ type, title, message }) => {
@@ -354,19 +404,42 @@ const Notification = ({ type, title, message }) => {
 
 module.exports = Notification;
 
-},{"@forgjs/noframework":1}],4:[function(require,module,exports){
+},{"@forgjs/noframework":1}],6:[function(require,module,exports){
+const { html } = require('@forgjs/noframework');
+const Rooter = require('./Rooter');
+
+const Project = () => {
+  const DomElement = html`
+    <main class="project">
+      
+    </main>
+  `;
+
+  Rooter.onShow(DomElement, async () => {
+    const call = await fetch('/src/__mocks__/getProjects.json');
+    const projects = await call.json();
+  });
+
+  return DomElement;
+};
+
+module.exports = Project();
+
+},{"./Rooter":8,"@forgjs/noframework":1}],7:[function(require,module,exports){
 const { html, $$ } = require('@forgjs/noframework');
+const { formatDate } = require('../utils');
 
 const ProjectCard = ({
-  name, description, img, team = [], tags = [], isOpen,
+  name, description, img, team = [], tags = [], isOpen, date = new Date(),
 }) => {
   const DomElement = html`
     <article>
       <img src="${img}">
-      <h1>${isOpen ? '' : '<i class="icofont-lock"></i>'} ${name}</h1>
+      <h1>${isOpen ? '<i class="icofont-unlocked"></i>' : '<i class="icofont-lock"></i>'} ${name}</h1>
       <p class="team">
         ${team.map(e => html`<strong class='${e.author ? 'author' : ''}'>@${e.name}</strong>`)}
       </p>
+      <div class="creationDate">${formatDate(date, 'D/M/Y h:m')}</div>
       <p>
         ${description}
       </p>
@@ -383,13 +456,80 @@ const ProjectCard = ({
 
   $$('ul>li', DomElement).forEach(e => e.addEventListener('click', () => e.classList.toggle('selected')));
 
+  DomElement.statics.isOpen = isOpen;
+  DomElement.statics.date = date;
+
   return DomElement;
 };
 
 
 module.exports = ProjectCard;
 
-},{"@forgjs/noframework":1}],5:[function(require,module,exports){
+},{"../utils":12,"@forgjs/noframework":1}],8:[function(require,module,exports){
+const { EventManager } = require('@forgjs/noframework');
+
+class Rooter {
+  constructor() {
+    this.pages = [];
+    this.listener = new EventManager();
+    this.RooterDomElements = [];
+
+    window.onhashchange = () => {
+      this.goTo(window.location.hash);
+    };
+  }
+
+  onShow(element, fn) {
+    this.listener.subscribe('rooter-change', (url, ele) => {
+      if (ele === element) {
+        fn(url);
+      }
+    });
+  }
+
+  goTo(url) {
+    const nurl = url.replace('#', '');
+    this.pages.forEach((e) => {
+      if (e.func && e.func(nurl)) {
+        this.listener.emit('rooter-change', nurl, e.element);
+        // eslint-disable-next-line
+        e.element.statics._show();
+      } else {
+        // eslint-disable-next-line
+        e.element.statics._hide();
+      }
+    });
+  }
+
+  go(url) {
+    this.pages = this.pages;
+    window.location.hash = `#${url}`;
+  }
+
+  set(func, element) {
+    // eslint-disable-next-line
+    element.statics._hide = () => {
+      // eslint-disable-next-line
+      element.style.display = 'none';
+    };
+
+    // eslint-disable-next-line
+    element.statics._show = () => {
+      // eslint-disable-next-line
+      element.style.display = null;
+    };
+
+    this.pages.push({
+      func, element,
+    });
+    this.RooterDomElements.push(element);
+    this.goTo(window.location.hash);
+  }
+}
+
+module.exports = new Rooter();
+
+},{"@forgjs/noframework":1}],9:[function(require,module,exports){
 const { html } = require('@forgjs/noframework');
 const Notification = require('./Notification');
 
@@ -443,51 +583,17 @@ const Side = () => {
 
 module.exports = Side();
 
-},{"./Notification":3,"@forgjs/noframework":1}],6:[function(require,module,exports){
+},{"./Notification":5,"@forgjs/noframework":1}],10:[function(require,module,exports){
 const { html, $ } = require('@forgjs/noframework');
 const Nav = require('./components/Navigation');
 const Side = require('./components/Side');
-const ProjectCard = require('./components/ProjectCard');
-
-
-const projects = [{
-  team: [{ name: 'PH', author: true }, { name: 'Koko' }, { name: 'Krikri' }],
-  tags: ['Javascript', 'HTML'],
-  isOpen: true,
-  author: 'Oussama',
-  name: 'Project One',
-  img: 'https://cdn.dribbble.com/users/4859/screenshots/6515872/b-landing-dr.png',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-}, {
-  tags: ['C#', 'C++'],
-  author: 'Coco',
-  name: 'Project Two',
-  img: 'https://cdn.dribbble.com/users/25514/screenshots/6373241/scoot_urgent_mobile_support.png',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-},
-{
-  team: [{ name: 'Pierre Haricot' }, { name: 'Coco', author: true }, { name: 'Krikri' }],
-  author: 'Krikri',
-  name: 'Project Three',
-  img: 'https://cdn.dribbble.com/users/426214/screenshots/6099634/building_analytics_website_2x.jpg',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-},
-{
-  team: [{ name: 'Pierre Haricot' }, { name: 'La porte', author: true }, { name: 'DEVELOPPER' }, { name: 'DEVELOPPER' }],
-  author: 'Krikri',
-  name: 'Project Three',
-  isOpen: true,
-  img: 'https://cdn.dribbble.com/users/25514/screenshots/6373241/scoot_urgent_mobile_support.png',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-}];
+const { RooterDomElements } = require('./rooter');
 
 
 const app = html`
 <div class="app">
   ${Nav}
-  <main>
-    ${projects.map(ProjectCard)}
-  </main>
+  ${RooterDomElements}
   ${Side}
 </div>
 `;
@@ -495,4 +601,44 @@ const app = html`
 
 $('body').appendChild(app);
 
-},{"./components/Navigation":2,"./components/ProjectCard":4,"./components/Side":5,"@forgjs/noframework":1}]},{},[6]);
+},{"./components/Navigation":4,"./components/Side":9,"./rooter":11,"@forgjs/noframework":1}],11:[function(require,module,exports){
+const rooter = require('./components/Rooter');
+const Home = require('./components/Home');
+const Project = require('./components/Project');
+
+rooter.set(
+  url => url === '',
+  Home,
+);
+
+rooter.set(
+  url => /project\?q=/.test(url),
+  Project,
+);
+
+module.exports = rooter;
+
+},{"./components/Home":3,"./components/Project":6,"./components/Rooter":8}],12:[function(require,module,exports){
+/**
+ *
+ * @param {Date} date
+ * @param {String} format
+ *
+ * @return {String}
+ */
+const formatDate = (date, format) => {
+  const ret = format.replace('h', date.getHours())
+    .replace('m', date.getMinutes())
+    .replace('s', date.getSeconds())
+    .replace('ms', date.getMilliseconds())
+    .replace('M', date.getMonth())
+    .replace('Y', date.getFullYear())
+    .replace('D', date.getDate());
+  return ret;
+};
+
+module.exports = {
+  formatDate,
+};
+
+},{}]},{},[10]);

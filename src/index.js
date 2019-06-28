@@ -1,47 +1,13 @@
 const { html, $ } = require('@forgjs/noframework');
 const Nav = require('./components/Navigation');
 const Side = require('./components/Side');
-const ProjectCard = require('./components/ProjectCard');
-
-
-const projects = [{
-  team: [{ name: 'PH', author: true }, { name: 'Koko' }, { name: 'Krikri' }],
-  tags: ['Javascript', 'HTML'],
-  isOpen: true,
-  author: 'Oussama',
-  name: 'Project One',
-  img: 'https://cdn.dribbble.com/users/4859/screenshots/6515872/b-landing-dr.png',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-}, {
-  tags: ['C#', 'C++'],
-  author: 'Coco',
-  name: 'Project Two',
-  img: 'https://cdn.dribbble.com/users/25514/screenshots/6373241/scoot_urgent_mobile_support.png',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-},
-{
-  team: [{ name: 'Pierre Haricot' }, { name: 'Coco', author: true }, { name: 'Krikri' }],
-  author: 'Krikri',
-  name: 'Project Three',
-  img: 'https://cdn.dribbble.com/users/426214/screenshots/6099634/building_analytics_website_2x.jpg',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-},
-{
-  team: [{ name: 'Pierre Haricot' }, { name: 'La porte', author: true }, { name: 'DEVELOPPER' }, { name: 'DEVELOPPER' }],
-  author: 'Krikri',
-  name: 'Project Three',
-  isOpen: true,
-  img: 'https://cdn.dribbble.com/users/25514/screenshots/6373241/scoot_urgent_mobile_support.png',
-  description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum quas perspiciatis veniam accusamus error nulla quasi sequi alias quibusdam praesentium? Atque itaque debitis vitae quaerat laborum magnam id delectus dolor.',
-}];
+const { RooterDomElements } = require('./rooter');
 
 
 const app = html`
 <div class="app">
   ${Nav}
-  <main>
-    ${projects.map(ProjectCard)}
-  </main>
+  ${RooterDomElements}
   ${Side}
 </div>
 `;
