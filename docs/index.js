@@ -315,7 +315,7 @@ const Home = () => {
   let projects = [];
   const requestProjects = async () => {
     DomElement.innerHTML = '';
-    const call = await fetch('/src/__mocks__/getProjects.json');
+    const call = await fetch('./__mocks__/getProjects.json');
     const resp = await call.json();
     projects = resp.items.map(ProjectCard);
     projects.forEach(p => DomElement.appendChild(p));
@@ -416,7 +416,7 @@ const Project = () => {
   `;
 
   Rooter.onShow(DomElement, async () => {
-    const call = await fetch('/src/__mocks__/getProjects.json');
+    const call = await fetch('./__mocks__/getProjects.json');
     const projects = await call.json();
   });
 

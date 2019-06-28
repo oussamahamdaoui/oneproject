@@ -9,7 +9,7 @@ const Project = () => {
   `;
 
   Rooter.onShow(DomElement, async () => {
-    const call = await fetch('/src/__mocks__/getProjects.json');
+    const call = await fetch('./__mocks__/getProjects.json');
     const projects = await call.json();
   });
 
