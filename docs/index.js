@@ -3477,7 +3477,7 @@ const Home = () => {
   let projects = [];
   const requestProjects = async () => {
     DomElement.innerHTML = '';
-    const call = await fetch('/docs/__mocks__/getProjects.json');
+    const call = await fetch('/docs/mocks/getProjects.json');
     const resp = await call.json();
     projects = resp.items.map(ProjectCard);
     projects.forEach(p => DomElement.appendChild(p));
