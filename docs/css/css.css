@@ -14,12 +14,11 @@ li {
   --light-2:#CECFD6;
   --light-3:#B0BAC4;
   --darker-1:#1D222C;
-  --darker-2:#F5F9FC;
+  --darker-2:#F3F3F3;
 
-  --highlight-1:#1B84E8;
-  --highlight-2:#C8D5E7;
+  --highlight-1:#333333;
 
-  --secondary-1:#2EC6A7;
+  --secondary-1:#F5F5F5;
   --secondary-2:#FE8084;
   --secondary-3:#FEC357;
 }
@@ -78,6 +77,9 @@ nav > input {
   outline:none;
   font-size:1.2em;
   padding-left: 20px;
+  background-color: var(--darker-2);
+  border-radius: 5px;
+  margin-right: 15px;
 }
 
 
@@ -163,6 +165,23 @@ aside > section.notifications {
   flex-direction: column;
   align-self: flex-end;
 }
+section.notifications > h2 {
+  display: flex;
+  align-items: center;
+}
+
+section.notifications > h2 > span {
+  background-color: var(--light-2);
+  color: var(--highlight);
+  border-radius: 100%;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 5px;
+} 
 
 aside > section > article {
   width: 100%;
@@ -202,12 +221,9 @@ aside > section > article {
 }
 
 i.message {
-  color: var(--secondary-2);
+  color: var(--highlight);
 }
 
-i.project {
-  color: var(--secondary-3);
-}
 
 
 .notification.removing {
@@ -287,7 +303,7 @@ main.home > article > .team {
 
 main.home > article > .team > strong.author {
   background-color: var(--secondary-1);
-  color:var(--light-1);
+  color:var(--darker-1);
 }
 
 main.home > article > ul > li {
@@ -295,7 +311,7 @@ main.home > article > ul > li {
 }
 
 main.home > article > ul > li.selected > i {
-  color: var(--secondary-1);
+  color: var(--darker-1);
 }
 
 strong {
@@ -304,9 +320,9 @@ strong {
   padding-top:3px;
   padding-bottom:4px;
   margin-left:3px;
-  background-color:var(--highlight-2);
+  background-color:var(--secondary-1);
   color:var(--highlight);
-  border-radius: 1em;
+  border-radius: 5px;
   opacity: 0.9;
   text-align: center;
   transition: all 200ms ease-in-out;

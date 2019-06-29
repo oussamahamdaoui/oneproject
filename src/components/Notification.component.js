@@ -1,4 +1,6 @@
 const { html, $ } = require('@forgjs/noframework');
+const { Howl } = require('howler');
+const EventHandler = require('../EventHandler');
 
 const Notification = ({ type, title, message }) => {
   const TypeToClass = {
@@ -18,8 +20,15 @@ const Notification = ({ type, title, message }) => {
     </li>
   `;
 
-  $('.close', DomElement).addEventListener('click', () => {
+
+  $('.close', DomElement).addEventListener('click', (e) => {
     DomElement.classList.add('removing');
+    EventHandler.emit('notification-out', DomElement, e);
+    const sound = new Howl({
+      src: ['sounds/remove-notification.wav'],
+      volume: 0.1,
+    });
+    sound.play();
     setTimeout(() => {
       DomElement.parentNode.removeChild(DomElement);
     }, 300);

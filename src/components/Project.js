@@ -1,5 +1,6 @@
 const { html } = require('@forgjs/noframework');
 const Rooter = require('./Rooter');
+const ProjectCard = require('./ProjectCard');
 
 const Project = () => {
   const DomElement = html`
@@ -9,8 +10,9 @@ const Project = () => {
   `;
 
   Rooter.onShow(DomElement, async () => {
-    const call = await fetch('./__mocks__/getProjects.json');
-    const projects = await call.json();
+    const call = await fetch('/doc/__mocks__/getProjects.json');
+    const project = (await call.json())[0];
+    DomElement.appendChild(ProjectCard(project));
   });
 
   return DomElement;

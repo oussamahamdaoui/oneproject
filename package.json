@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@forgjs/noframework": "^1.0.7",
+    "howler": "^2.1.2",
     "watchify": "^3.11.1"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@ const { html } = require('@forgjs/noframework');
 
 const ProjectArticle = (props) => {
   const {
-    name, description, img, team = [], tags = [], isOpen, date = new Date(),
+    name, description, img,
   } = props;
 
   const DomElement = html`
@@ -12,6 +12,8 @@ const ProjectArticle = (props) => {
     <p>${description}</p>
   </article>
   `;
+
+  return DomElement;
 };
 
 
